@@ -1,0 +1,39 @@
+{
+  "tiktok_accounts": [
+    {
+      "url": "https://www.tiktok.com/@username",
+      "tag": "Dance Creator"
+    }
+  ],
+  "tiktok": {
+    "lookback_hours": 72,
+    "max_new_per_account": 3,
+    "min_duration_sec": 6,
+    "max_duration_sec": 55,
+    "wait_seconds_between_downloads": 20
+  },
+  "render": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "line_width": 16,
+    "stick_color": "#22d3ee",
+    "head_color": "#fef08a",
+    "background": "source"
+  },
+  "youtube": {
+    "title_template": "This stick dancer has the moves! {tag} #shorts #dance #stickfigure",
+    "description_template": "Follow for daily stick figure dance videos! Every move perfectly copied from the original clip. #shorts #dance #stickfigure #funny #trending",
+    "privacy_status": "public",
+    "category_id": "22",
+    "language": "en",
+    "made_for_kids": false
+  },
+  "work": {
+    "dir": "work",
+    "raw_dir": "raw",
+    "poses_dir": "poses",
+    "frames_dir": "frames",
+    "out_dir": "out"
+  }
+}

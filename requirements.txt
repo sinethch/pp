@@ -1,0 +1,9 @@
+yt-dlp>=2025.1.15
+opencv-python-headless>=4.10.0.84
+mediapipe>=0.10.14
+numpy>=1.26.4
+Pillow>=10.4.0
+google-api-python-client>=2.150.0
+google-auth>=2.37.0
+google-auth-oauthlib>=1.2.1
+google-auth-httplib2>=0.2.0

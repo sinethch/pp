@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Pipeline working dirs (local test artifacts)
+work/
+out/
+
+# Local credentials / cookies - NEVER commit
+cookies.txt
+client_secret*.json
+*.token.json
+
+# OS
+Thumbs.db
+.DS_Store

@@ -1,0 +1,62 @@
+name: StickDancer - Auto Dance Pipeline
+
+on:
+  schedule:
+    # Every 2 hours around the clock (UTC). Adjust to your posting rhythm.
+    - cron: "0 */2 * * *"
+  workflow_dispatch:
+    inputs:
+      config:
+        description: "Path to config.json (usually leave default)"
+        required: false
+        default: "config.json"
+
+concurrency:
+  group: stickdancer-pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  create-and-post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pipeline
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          TIKTOK_COOKIES: ${{ secrets.TIKTOK_COOKIES }}
+        run: python -m src.main --config "${{ inputs.config || 'config.json' }}"
+
+      - name: Commit updated state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          if git diff --cached --quiet; then
+            echo "No state changes, nothing to commit"
+          else
+            git commit -m "chore(pipe): update pipeline state [skip ci]"
+            git pull --rebase --autostash || true
+            git push
+          fi
