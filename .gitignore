@@ -12,6 +12,7 @@ out/
 # Local credentials / cookies - NEVER commit
 cookies.txt
 client_secret*.json
+oauth_token.json
 *.token.json
 
 # OS
